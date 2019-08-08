@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_Landscape_1" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="33ebe085-07b8-4d61-ab66-731c3af85cac">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Database"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="mat" class="java.lang.String"/>
+	<parameter name="frente" class="java.lang.String"/>
+	<parameter name="verso" class="java.lang.String"/>
+	<parameter name="foto" class="java.lang.String"/>
+	<parameter name="assinatura" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM alunos, carteirinhas WHERE matricula = $P{mat}]]>
+	</queryString>
+	<field name="matricula" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="matricula"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alunos"/>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alunos"/>
+	</field>
+	<field name="curso" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="curso"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alunos"/>
+	</field>
+	<field name="ano" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ano"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alunos"/>
+	</field>
+	<field name="cpf" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="cpf"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alunos"/>
+	</field>
+	<field name="rg" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="rg"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alunos"/>
+	</field>
+	<field name="nascimento" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nascimento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alunos"/>
+	</field>
+	<field name="naturalidade" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="naturalidade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alunos"/>
+	</field>
+	<field name="campus" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="campus"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alunos"/>
+	</field>
+	<field name="modalidade" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="modalidade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alunos"/>
+	</field>
+	<field name="foto" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="foto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="alunos"/>
+	</field>
+	<field name="validade" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="validade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="carteirinhas"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="184" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+				<reportElement x="24" y="8" width="260" height="169" uuid="13d20f0a-abca-4fc0-b54c-fa6229ec6cb8">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box padding="1">
+					<pen lineColor="#387800"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#387800"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#387800"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#387800"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#387800"/>
+				</box>
+				<imageExpression><![CDATA["C:/Users/DOOBZ/ECCE/public/reports/frente.png"]]></imageExpression>
+			</image>
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+				<reportElement x="286" y="8" width="260" height="169" uuid="3872b0db-544e-4cfd-9701-1758b512cbcd">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<box padding="1">
+					<pen lineColor="#387800"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#387800"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#387800"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#387800"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#387800"/>
+				</box>
+				<imageExpression><![CDATA["C:/Users/DOOBZ/ECCE/public/reports/verso.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="126" y="73" width="63" height="23" uuid="8dee31d6-a719-4849-83c9-f5f4466b4b59">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{campus}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="41" y="107" width="146" height="10" uuid="c699db8c-21b3-462d-8be4-dad996bb8ddb">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="43" y="128" width="146" height="10" uuid="57a8daa2-9cdb-4a02-86da-0b03751452f8">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="150" width="24" height="10" uuid="f3e495d4-829b-45e7-8f9d-7f38621d450b">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ano}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="68" y="150" width="58" height="10" uuid="64b8cf05-4f28-429a-a489-acdab8f6b356">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{matricula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="131" y="150" width="58" height="10" uuid="d4506876-2f79-45a8-ba09-acc55183f111">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{modalidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="303" y="26" width="65" height="10" uuid="a728f951-76ef-447d-bb52-4930a503ab53">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="303" y="47" width="64" height="10" uuid="b63cd3aa-e145-4ed4-b336-265fc455b91d">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cpf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="303" y="68" width="144" height="10" uuid="23e801fa-9799-4816-9173-3198d466087d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{naturalidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="383" y="26" width="65" height="10" uuid="c9b5d2b0-d24a-4d7c-af36-e0a69140e0a8">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{validade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="383" y="47" width="64" height="10" uuid="1c947f6e-5696-43a6-bf4a-143422c57797"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nascimento}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="461" y="20" width="70" height="70" forecolor="#000000" uuid="2642a02b-9256-465b-93b0-6f7b1b753556">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<jr:codeExpression><![CDATA[$F{matricula}]]></jr:codeExpression>
+				</jr:QRCode>
+			</componentElement>
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Blank">
+				<reportElement x="201" y="73" width="63" height="83" uuid="66d18976-a7f3-4906-9e47-b44ac8207eaf">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{foto}]]></imageExpression>
+			</image>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="460" y="120" width="73" height="27" uuid="1d50d88f-cf08-4a04-a824-be2c11c31fe6"/>
+				<imageExpression><![CDATA[$P{assinatura}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+</jasperReport>
