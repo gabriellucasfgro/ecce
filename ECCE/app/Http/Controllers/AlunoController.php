@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Alteracoes;
 use Response;
 use Request;
 use Validator;
@@ -18,51 +18,6 @@ use App\Funcionario;
 use PHPJasper\PHPJasper;
 
 class AlunoController extends Controller {
-
-    public function registrar() {
-        return view('registrarAluno');
-    }
-
-    public function registrarAluno() {
-
-        $validator = Validator::make(Request::all(), [
-            'matricula' => 'required|string|max:255|unique:alunos',
-            'nome' => 'required|string|max:255',
-            'curso' => 'required|string|max:255',
-            'ano' => 'required|string|max:255',
-            'cpf' => 'required|string|min:11|max:11|unique:alunos',
-            'rg' => 'required|string|max:255',
-            'nascimento' => 'required|string|max:255',
-            'naturalidade' => 'required|string|max:255',
-            'campus' => 'required|string|max:255',
-            'modalidade' => 'required|string|max:255',
-            'password' => 'required|string|min:6',
-        ]);
-
-        if($validator->fails()) {
-            return view('registrarAluno')->with('errors', $validator->errors());
-        }
-        else {
-            Aluno::create([
-                'matricula' => Request::input('matricula'),
-                'nome' => Request::input('nome'),
-                'curso' => Request::input('curso'),
-                'ano' => Request::input('ano'),
-                'cpf' => Request::input('cpf'),
-                'rg' => Request::input('rg'),
-                'nascimento' => Request::input('nascimento'),
-                'naturalidade' => Request::input('naturalidade'),
-                'campus' => Request::input('campus'),
-                'modalidade' => Request::input('modalidade'),
-                'password' => bcrypt(Request::input('password')),
-            ]);
-            Carteirinha::create([
-                'emissao' => date('d/m/Y'),
-                'validade' => '29/02/2020',
-            ]);
-            return view('entrar')->with('aluno_criado', "Aluno registrado com sucesso!");
-        }
-    }
 
     public function atualizar() {
         if(verifyAuth()) {
@@ -137,7 +92,7 @@ class AlunoController extends Controller {
         if(verifyAuth()) {
             if(Request::hasFile('foto')) {
                $extension = File::extension(Request::file('foto')->getClientOriginalName());
-               if ($extension == "png" || $extension == "jpg" || $extension == "jpeg") {
+               if ($extension == "png") {
                     
                     $aluno = Auth::user();
 
@@ -149,19 +104,16 @@ class AlunoController extends Controller {
                     $aluno->foto = $fileName;
                     $aluno->save();
 
-                    //Request::session()->forget('aluno');
-                    //Request::session()->put('aluno', $aluno);
-
                     return view('messageboxAluno')->with('tipo', 'alert alert-success')
-                            ->with('titulo', 'FOTO SALVA!')
-                            ->with('msg', 'Arquivo de imagem foi salvo com sucesso!')
-                            ->with('acao', action('AlunoController@atualizar'))
-                            ->with('name', 'atualizar')
-                            ->with('value', "A");
+                        ->with('titulo', 'FOTO SALVA!')
+                        ->with('msg', 'Arquivo de imagem foi salvo com sucesso!')
+                        ->with('acao', action('AlunoController@atualizar'))
+                        ->with('name', 'atualizar')
+                        ->with('value', "A");
                 }
                 return view('messageboxAluno')->with('tipo', 'alert alert-danger')
                     ->with('titulo', 'ARQUIVO INVÁLIDO!')
-                    ->with('msg', 'Arquivo de imagem inválido!')
+                    ->with('msg', 'Arquivo de imagem inválido! Formato deve ser .PNG!')
                     ->with('acao', action('AlunoController@atualizar'))
                     ->with('name', 'atualizar')
                     ->with('value', "A");
@@ -178,20 +130,93 @@ class AlunoController extends Controller {
 
     public function solicitarAlteracao() {
         if(verifyAuth()) {
-            if(isset($_POST['mensagem'])) {
-                $msg = Request::input('mensagem');
 
-                $funcionarios = Funcionario::all();
+            $aluno = Auth::user();
 
-                $dados['msg'] = $msg;
-                $dados['aluno'] = Auth::user()->nome;
+            if(Alteracoes::where('matricula', Auth::user()->matricula)->first() == null) {
+                $alteracoes = new Alteracoes();
+            } else {
+                $alteracoes = Alteracoes::find(Auth::user()->matricula);
+            }
 
-                foreach($funcionarios as $objFuncionario) {
-                    $email = mb_strtolower($objFuncionario->email, 'UTF-8');
-                    \Mail::to($email)->send(new SolicitarAlteracaoEmail("emailSolicitarAlteracao", $dados, "ECCE - Alteração de dados solicitada - ".Auth::user()->nome));
-                    sleep(1);
+            $alteracoes->matricula = Auth::user()->matricula;
+            $alteracoes->nome = Auth::user()->nome;
+            $alteracoes->curso = Auth::user()->curso;
+            $alteracoes->ano = Auth::user()->ano;
+            $alteracoes->campus = Auth::user()->campus;
+            $alteracoes->modalidade = Auth::user()->modalidade;
+            $alteracoes->cpf = Auth::user()->cpf;
+            $alteracoes->password = Auth::user()->password;
+            $alteracoes->rg = Auth::user()->rg;
+            $alteracoes->naturalidade = Auth::user()->naturalidade;
+            $alteracoes->nascimento = Auth::user()->nascimento;
+            $alteracoes->foto = Auth::user()->foto;
+            
+            $att = 0;
+            if(isset($_POST['nome']) && Request::input('nome') != $aluno->nome) {
+                $alteracoes->nome = Request::input('nome');
+                $att = 1;
+            } 
+            if(isset($_POST['curso']) && Request::input('curso') != $aluno->curso) {
+                $alteracoes->curso = Request::input('curso');
+                $att = 1;
+            }
+            if(isset($_POST['ano']) && Request::input('ano') != $aluno->ano) {
+                $alteracoes->ano = Request::input('ano');
+                $att = 1;
+            }
+            if(isset($_POST['campus']) && Request::input('campus') != $aluno->campus) {
+                $alteracoes->campus = Request::input('campus');
+                $att = 1;
+            }
+            if(isset($_POST['modalidade']) && Request::input('modalidade') != $aluno->modalidade) {
+                $alteracoes->modalidade = Request::input('modalidade');
+                $att = 1;
+            }
+            if(isset($_POST['cpf']) && Request::input('cpf') != $aluno->cpf) {
+                $alteracoes->cpf = Request::input('cpf');
+                $pwd = preg_replace("/[^0-9]/", "", $alteracoes->cpf);
+                $pwd = str_pad($pwd, 11, '0', STR_PAD_LEFT);
+                $alteracoes->password = bcrypt($pwd);
+                $att = 1;
+            }
+            if(isset($_POST['rg']) && Request::input('rg') != $aluno->rg) {
+                $alteracoes->rg = Request::input('rg');
+                $att = 1;
+            }
+            if(isset($_POST['naturalidade']) && Request::input('naturalidade') != $aluno->naturalidade) {
+                $alteracoes->naturalidade = Request::input('naturalidade');
+                $att = 1;
+            }
+            if(!is_null(($_POST['nascimento'])) && isRealDate($_POST['nascimento']) && Request::input('nascimento') != $aluno->nascimento) {
+                $date = date_create(Request::input('nascimento'));
+                $alteracoes->nascimento = date_format($date,"d/m/Y");
+                $att = 1;
+            }
+            if(Request::hasFile('foto')) {
+                $extension = File::extension(Request::file('foto')->getClientOriginalName());
+                if ($extension == "png") {
+                     
+                    $file = Request::file('foto');
+                    $fileName = $alteracoes->matricula.'_alteracao.'.$file->getClientOriginalExtension();
+                    $savePath = public_path('/upload/fotos/');
+                    $file->move($savePath, $fileName);
+
+                    $alteracoes->foto = $fileName;
+                    $att = 1;
+
+                } else {
+                    return view('messageboxAluno')->with('tipo', 'alert alert-danger')
+                        ->with('titulo', 'IMAGEM INVÁLIDA!')
+                        ->with('msg', 'Arquivo de imagem inválido! Formato deve ser .PNG')
+                        ->with('acao', action('AlunoController@atualizar'))
+                        ->with('name', 'atualizar')
+                        ->with('value', "A");
                 }
+            }
 
+            if($att == 1) {
+                $alteracoes->save();
                 return view('messageboxAluno')->with('tipo', 'alert alert-success')
                     ->with('titulo', 'SOLICITAÇÃO ENVIADA!')
                     ->with('msg', 'Sua solicitação foi enviada e será análisada por um membro da secretaria!')

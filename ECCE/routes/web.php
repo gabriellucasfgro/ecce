@@ -44,8 +44,11 @@ Route::post('/aluno/autenticar', 'AlunoController@autenticar');
 	Route::post('/secretaria/exportar', 'SecretariaController@exportar');
 	Route::post('/secretaria/assinatura', 'SecretariaController@assinatura');
 	Route::post('/secretaria/assinatura/alterar', 'SecretariaController@atualizarAssinatura');
+	Route::post('/secretaria/solicitacoes', 'SecretariaController@solicitacao');
+	Route::post('/secretaria/visualisar/alteracao/{matricula}', 'SecretariaController@visualisarAlteracao');
+	Route::post('/secretaria/alteracao/validar', 'SecretariaController@validarAlteracao');
+	Route::post('/secretaria/alteracao/recusar/{matricula}', 'SecretariaController@recusarAlteracao');
 	Route::post('/secretaria/sair', 'SecretariaController@sair');
-	Route::post('/secretaria/grafico', 'SecretariaController@Pizza');
 //});
 
 //Rotas autenticadas // aluno

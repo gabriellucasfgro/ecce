@@ -99,6 +99,18 @@
                                     </button>
                                 </form>
 
+                                <form action="{{ action('SecretariaController@solicitacao') }}" method="POST">
+                                <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
+                                <input type ="hidden" name="solicitacao" value="S">
+                                    @if(Request::input('solicitacao') == 'S')
+                                        <button type="submit" class="list-group-item list-group-item-action bg-success active">
+                                    @else
+                                        <button type="submit" class="list-group-item list-group-item-action">
+                                    @endif
+                                        <i class="fas fa-envelope"></i> Solicitações de Alteração
+                                    </button>
+                                </form>
+
                                 <form action="{{ action('SecretariaController@sair') }}" method="POST">
                                 <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
                                     <button type="submit" class="list-group-item list-group-item-action">

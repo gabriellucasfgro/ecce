@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use App\Aluno;
 use App\Funcionario;
 use App\Carteirinha;
+use App\Alteracoes;
 use PHPJasper\PHPJasper;
 use Khill\Lavacharts\Lavacharts;
 
@@ -42,9 +43,10 @@ class SecretariaController extends Controller {
         }
     }
 
-    public function secretaria() {
+    public function solicitacao() {
         if(verifyAuth()) {
-            return view('secretaria');
+            $alteracoes = Alteracoes::all();
+            return view('solicitacoesAlteracao')->with('alteracoes', $alteracoes);
         }
     }
 
@@ -131,30 +133,32 @@ class SecretariaController extends Controller {
                             && $collection[$row][$colunaEmissao] != '') {
 
                             if(Aluno::where('matricula', $collection[$row][$colunaMatricula])->first() == null) {
-
                                 $objAluno = new Aluno();
-                                $objAluno->matricula = $collection[$row][$colunaMatricula];
-                                $objAluno->nome = $collection[$row][$colunaNome];
-                                $objAluno->cpf = $collection[$row][$colunaCpf];
-                                $objAluno->rg = $collection[$row][$colunaRg];
-                                $objAluno->nascimento = $collection[$row][$colunaNascimento];
-                                $objAluno->curso = $collection[$row][$colunaCurso];
-                                $objAluno->ano = $collection[$row][$colunaAno];
-                                $objAluno->campus = $collection[$row][$colunaCampus];
-                                $objAluno->modalidade = $collection[$row][$colunaModalidade];
-                                $objAluno->naturalidade = $collection[$row][$colunaNaturalidade];
-                                $pwd = preg_replace("/[^0-9]/", "", $collection[$row][$colunaCpf]);
-                                $pwd = str_pad($pwd, 11, '0', STR_PAD_LEFT);
-                                $objAluno->password = bcrypt($pwd);
-                                $objAluno->save();
-
-                                $objCarteirinha = new Carteirinha();
-                                $objCarteirinha->aluno_matricula = $collection[$row][$colunaMatricula];
-                                $objCarteirinha->validade = $collection[$row][$colunaValidade];
-                                $objCarteirinha->emissao = $collection[$row][$colunaEmissao];
-                                $objCarteirinha->save();
-
+                            }else {
+                                $objAluno = Aluno::find($collection[$row][$colunaMatricula]);
                             }
+
+                            $objAluno->matricula = $collection[$row][$colunaMatricula];
+                            $objAluno->nome = $collection[$row][$colunaNome];
+                            $objAluno->cpf = $collection[$row][$colunaCpf];
+                            $objAluno->rg = $collection[$row][$colunaRg];
+                            $objAluno->nascimento = $collection[$row][$colunaNascimento];
+                            $objAluno->curso = $collection[$row][$colunaCurso];
+                            $objAluno->ano = $collection[$row][$colunaAno];
+                            $objAluno->campus = $collection[$row][$colunaCampus];
+                            $objAluno->modalidade = $collection[$row][$colunaModalidade];
+                            $objAluno->naturalidade = $collection[$row][$colunaNaturalidade];
+                            $pwd = preg_replace("/[^0-9]/", "", $collection[$row][$colunaCpf]);
+                            $pwd = str_pad($pwd, 11, '0', STR_PAD_LEFT);
+                            $objAluno->password = bcrypt($pwd);
+                            $objAluno->save();
+
+                            $objCarteirinha = new Carteirinha();
+                            $objCarteirinha->aluno_matricula = $collection[$row][$colunaMatricula];
+                            $objCarteirinha->validade = $collection[$row][$colunaValidade];
+                            $objCarteirinha->emissao = $collection[$row][$colunaEmissao];
+                            $objCarteirinha->save();
+
                         }
                     }
                     
@@ -205,6 +209,107 @@ class SecretariaController extends Controller {
             $carteirinha = Carteirinha::where('aluno_matricula', $matricula)->first();
             return view('visualisarAluno')->with('aluno', $aluno)->with('carteirinha', $carteirinha);
         }
+    }
+
+    public function visualisarAlteracao($matricula) {
+        if(verifyAuth()) {
+            $alteracao = Alteracoes::where('matricula', $matricula)->first();
+            return view('visualisarAlteracao')->with('alteracao', $alteracao);
+        }
+    }
+
+    public function validarAlteracao() {
+        if(verifyAuth()) {
+            $aluno = Aluno::find(Request::input('matricula'));
+            if(isset($_POST['nome']) && Request::input('nome') != $aluno->nome) {
+                $aluno->nome = Request::input('nome');
+                $aluno->save();
+            } 
+            if(isset($_POST['curso']) && Request::input('curso') != $aluno->curso) {
+                $aluno->curso = Request::input('curso');
+                $aluno->save();
+            }
+            if(isset($_POST['ano']) && Request::input('ano') != $aluno->ano) {
+                $aluno->ano = Request::input('ano');
+                $aluno->save();
+            }
+            if(isset($_POST['campus']) && Request::input('campus') != $aluno->campus) {
+                $aluno->campus = Request::input('campus');
+                $aluno->save();
+            }
+            if(isset($_POST['modalidade']) && Request::input('modalidade') != $aluno->modalidade) {
+                $aluno->modalidade = Request::input('modalidade');
+                $aluno->save();
+            }
+            if(isset($_POST['cpf']) && Request::input('cpf') != $aluno->cpf) {
+                $aluno->cpf = Request::input('cpf');
+                $pwd = preg_replace("/[^0-9]/", "", $aluno->cpf);
+                $pwd = str_pad($pwd, 11, '0', STR_PAD_LEFT);
+                $aluno->password = bcrypt($pwd);
+                $aluno->save();
+            }
+            if(isset($_POST['rg']) && Request::input('rg') != $aluno->rg) {
+                $aluno->rg = Request::input('rg');
+                $aluno->save();
+            }
+            if(isset($_POST['naturalidade']) && Request::input('naturalidade') != $aluno->naturalidade) {
+                $aluno->naturalidade = Request::input('naturalidade');
+                $aluno->save();
+            }
+            if(!is_null(($_POST['nascimento'])) && isRealDate($_POST['nascimento']) && Request::input('nascimento') != $aluno->nascimento) {
+                $date = date_create(Request::input('nascimento'));
+                $aluno->nascimento = date_format($date,"d/m/Y");
+                $aluno->save();
+            }
+            if(Request::hasFile('foto')) {
+                $extension = File::extension(Request::file('foto')->getClientOriginalName());
+                if ($extension == "png") {
+                    if(file_exists(public_path('/upload/fotos/').$aluno->matricula.'_alteracao.png')) {
+                        unlink(public_path('/upload/fotos/').$aluno->matricula.'_alteracao.png');
+                    }
+
+                    $file = Request::file('foto');
+                    $fileName = $aluno->matricula.'_foto.'.$file->getClientOriginalExtension();
+                    $savePath = public_path('/upload/fotos/');
+                    $file->move($savePath, $fileName);
+
+                    $aluno->foto = $fileName;
+                    $aluno->save();
+
+                } else {
+                    return view('messageboxAluno')->with('tipo', 'alert alert-danger')
+                        ->with('titulo', 'IMAGEM INVÁLIDA!')
+                        ->with('msg', 'Arquivo de imagem inválido! Formato deve ser .PNG')
+                        ->with('acao', action('SecretariaController@solicitacao'))
+                        ->with('name', 'solicitacao')
+                        ->with('value', "S");
+                }
+            } else if(file_exists(public_path('/upload/fotos/').$aluno->matricula.'_alteracao.png')) {
+                rename(public_path('/upload/fotos/').$aluno->matricula.'_alteracao.png', public_path('/upload/fotos/').$aluno->matricula.'_foto.'.'png');
+                $aluno->foto = $aluno->matricula.'_foto.'.'png';
+                $aluno->save();
+            }
+            
+            Alteracoes::destroy($aluno->matricula);
+
+            return view('messageboxSecretaria')->with('tipo', 'alert alert-success')
+                    ->with('titulo', 'ALTERAÇÃO VALIDADA!')
+                    ->with('msg', 'Os dados do aluno foram atualizados!')
+                    ->with('acao', action('SecretariaController@solicitacao'))
+                    ->with('name', 'solicitacao')
+                    ->with('value', "S");
+        } 
+
+    }
+
+    public function recusarAlteracao($matricula) {
+        Alteracoes::destroy($matricula);
+        return view('messageboxSecretaria')->with('tipo', 'alert alert-success')
+                    ->with('titulo', 'ALTERAÇÃO INVALIDADA!')
+                    ->with('msg', 'Os dados do aluno foram mantidos!')
+                    ->with('acao', action('SecretariaController@solicitacao'))
+                    ->with('name', 'solicitacao')
+                    ->with('value', "S");
     }
 
     public function filtrarAlunos() {
@@ -366,7 +471,7 @@ class SecretariaController extends Controller {
         if(verifyAuth()) {
             if(Request::hasFile('foto')) {
                $extension = File::extension(Request::file('foto')->getClientOriginalName());
-               if ($extension == "png" || $extension == "jpg" || $extension == "jpeg") {
+               if ($extension == "png") {
                     
                     $aluno = Aluno::find($matricula);
 
@@ -387,7 +492,7 @@ class SecretariaController extends Controller {
                 }
                 return view('messageboxSecretaria')->with('tipo', 'alert alert-danger')
                     ->with('titulo', 'ARQUIVO INVÁLIDO!')
-                    ->with('msg', 'Arquivo de imagem inválido!')
+                    ->with('msg', 'Arquivo de imagem inválido! Formato deve ser .PNG')
                     ->with('acao', action('SecretariaController@manterAlunos'))
                     ->with('name', 'alunos')
                     ->with('value', "A");
