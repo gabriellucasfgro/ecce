@@ -304,6 +304,9 @@ class SecretariaController extends Controller {
 
     public function recusarAlteracao($matricula) {
         Alteracoes::destroy($matricula);
+        if(file_exists(public_path('/upload/fotos/').$matricula.'_alteracao.png')) {
+            unlink(public_path('/upload/fotos/').$matricula.'_alteracao.png');
+        }
         return view('messageboxSecretaria')->with('tipo', 'alert alert-success')
                     ->with('titulo', 'ALTERAÇÃO INVALIDADA!')
                     ->with('msg', 'Os dados do aluno foram mantidos!')
