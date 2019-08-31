@@ -113,10 +113,19 @@
 
                                 <form action="{{ action('SecretariaController@sair') }}" method="POST">
                                 <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
-                                    <button type="submit" class="list-group-item list-group-item-action">
+                                    <button type="submit" class="list-group-item list-group-item-action bg-danger active">
                                         <i class="fas fa-door-open"></i> Sair
                                     </button>
                                 </form>
+
+                                @if(Auth::guard('secretaria')->user()->matricula == 'root_ecce')
+                                    <form action="{{ action('SecretariaController@funcionarios') }}" method="POST">
+                                    <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
+                                        <button type="submit" class="list-group-item list-group-item-action bg-warning">
+                                            <i class="fas fa-user-shield"></i> Administrar funcionarios
+                                        </button>
+                                    </form>
+                                @endif
 
                             </div>
                             <br>

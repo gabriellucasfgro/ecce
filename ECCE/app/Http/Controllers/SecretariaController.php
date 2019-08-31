@@ -50,6 +50,13 @@ class SecretariaController extends Controller {
         }
     }
 
+    public function funcionarios() {
+        if(verifyAuth()) {
+            $funcionarios = Funcionario::all();
+            return view('administrarFuncionarios')->with('funcionarios', $funcionarios);
+        }
+    }
+
     public function sair() {
         if(verifyAuth()) {
             Auth::guard("secretaria")->logout();
@@ -61,7 +68,7 @@ class SecretariaController extends Controller {
 
         Request::merge([
             'matricula' => Request::input('matricula_funcionario'),
-            'password' => Request::input('cpf_funcionario'),
+            'password' => Request::input('password_funcionario'),
         ]);
 
         $credentials = Request::only('matricula', 'password');
@@ -601,6 +608,34 @@ class SecretariaController extends Controller {
         }
     }
 
+    public function alterarFuncionario($id) {
+        $funcionario = Funcionario::find($id);
+        return view('alterarFuncionario')->with('funcionario', $funcionario);
+    }
+
+    public function atualizarFuncionario($id) {
+        $funcionario = Funcionario::find($id);
+        if(isset($_POST['nome']) && Request::input('nome') != $funcionario->nome) {
+            $funcionario->nome = Request::input('nome');
+            $funcionario->save();
+        } 
+        if(isset($_POST['matricula']) && Request::input('matricula') != $funcionario->matricula) {
+            if(Funcionario::where('matricula', $_POST['matricula'])->first() == null) {
+                $funcionario->matricula = Request::input('matricula');
+                $funcionario->save();
+            }
+        }
+        if(isset($_POST['password']) && Request::input('password') != $funcionario->password) {
+            $funcionario->password = bcrypt(Request::input('password'));
+            $funcionario->save();
+        }
+        return view('messageboxSecretaria')->with('tipo', 'alert alert-success')
+                ->with('titulo', 'DADOS ALTERADOS!')
+                ->with('msg', 'Os dados alterados foram salvos!')
+                ->with('acao', action('SecretariaController@alterarFuncionario', ['id' => $id]))
+                ->with('name', 'funcionario')
+                ->with('value', "F");;
+    }
     
 }
 function verifyAuth() {

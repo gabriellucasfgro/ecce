@@ -76,11 +76,11 @@
 				<form action="{{ action('SecretariaController@autenticar') }}" method="POST">
 			    <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
 			    <input type ="hidden" name="alunos" value="A">
-			    	<label for="matricula_funcionario" class="sr-only">Matrícula</label>
-			      	<input type="text" name="matricula_funcionario" id="matricula_funcionario" class="form-control" placeholder="Matrícula" required>
+			    	<label for="matricula_funcionario" class="sr-only">Login</label>
+			      	<input type="text" name="matricula_funcionario" id="matricula_funcionario" class="form-control" placeholder="Login" required>
 			      	<br>
-			    	<label for="cpf_funcionario" class="sr-only">CPF</label>
-			      	<input type="password" name="cpf_funcionario" id="cpf_funcionario" class="form-control" placeholder="Senha" required>
+			    	<label for="password_funcionario" class="sr-only">Senha</label>
+			      	<input type="password" name="password_funcionario" id="password_funcionario" class="form-control" placeholder="Senha" required>
 			      	<br>
 			    	<button class="btn btn-block btn-lg btn-success" type="submit">
 			    		<i class="fas fa-sign-in-alt"></i> Entrar

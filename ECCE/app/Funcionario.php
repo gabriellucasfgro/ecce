@@ -6,16 +6,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Funcionario extends Authenticatable
 {
-	public $primaryKey = 'matricula';
+	public $primaryKey = 'id';
 
 	protected $fillable = [
-        'matricula',
+        'id',
         'nome',
-        'cpf',
+        'username',
         'password',
     ];
-
-	public $incrementing = false;
 
     public $timestamps = false;
 

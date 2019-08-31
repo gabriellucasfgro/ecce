@@ -25,7 +25,6 @@ Route::post('/secretaria/autenticar', 'SecretariaController@autenticar');
 Route::post('/aluno/autenticar', 'AlunoController@autenticar');
 
 //Rotas autenticadas // secretaria
-//Route::group(['middleware' => 'auth:secretaria'], function() {
 	Route::post('/secretaria/alunos/filtro_geral', 'SecretariaController@filtrarAlunos');
 	Route::post('/secretaria/alunos/filtro_turma', 'SecretariaController@filtrarTurma');
 	Route::post('/secretaria/carteirinhas/filtro_geral', 'SecretariaController@filtrarCarteirinhas');
@@ -49,14 +48,15 @@ Route::post('/aluno/autenticar', 'AlunoController@autenticar');
 	Route::post('/secretaria/alteracao/validar', 'SecretariaController@validarAlteracao');
 	Route::post('/secretaria/alteracao/recusar/{matricula}', 'SecretariaController@recusarAlteracao');
 	Route::post('/secretaria/sair', 'SecretariaController@sair');
-//});
+	// root
+	Route::post('/root/funcionarios', 'SecretariaController@funcionarios');
+	Route::post('/root/funcionarios/alterar/{id}', 'SecretariaController@alterarFuncionario');
+	Route::post('/root/funcionario/alterar/salvar/{id}', 'SecretariaController@atualizarFuncionario');
 
 //Rotas autenticadas // aluno
-//Route::group(['middleware' => 'auth'], function() {
 	Route::post('/aluno/perfil', 'AlunoController@perfil');
 	Route::post('/aluno/atualizar', 'AlunoController@atualizar');
 	Route::post('/aluno/atualizar/imagem', 'AlunoController@atualizarImagem');
 	Route::post('/aluno/atualizar/solicitar', 'AlunoController@solicitarAlteracao');
 	Route::post('/aluno/imprimir', 'AlunoController@imprimir');
 	Route::post('/aluno/sair', 'AlunoController@sair');
-//});

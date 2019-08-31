@@ -14,9 +14,9 @@ class CreateFuncionariosTable extends Migration
     public function up()
     {
         Schema::create('funcionarios', function (Blueprint $table) {
-            $table->string('matricula');
+            $table->bigIncrements('id');
             $table->string('nome');
-            $table->string('cpf');
+            $table->string('username');
             $table->string('password');
         });
     }
