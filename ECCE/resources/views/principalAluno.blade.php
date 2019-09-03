@@ -78,7 +78,7 @@
                                 <form action="{{ action('AlunoController@sair') }}" method="POST">
                                 <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
                                 <input type ="hidden" name="sair" value="S">
-                                    <button type="submit" class="list-group-item list-group-item-action">
+                                    <button type="submit" class="list-group-item list-group-item-action bg-danger active">
                                         <i class="fas fa-door-open"></i> Sair
                                     </button>
                                 </form>

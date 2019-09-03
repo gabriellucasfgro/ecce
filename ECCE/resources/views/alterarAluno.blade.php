@@ -64,7 +64,7 @@
 				        </span>
 				        <input type="text" class="form-control" placeholder='...' />
 				    </div>
-                    <small class="form-text text-muted">Por favor selecione uma imagem válida com menos de 1MB.</small>
+                    <small class="form-text text-muted">Por favor selecione uma imagem válida de formato PNG.</small>
                 </div>
 		</div>
 			<br>

@@ -141,8 +141,10 @@ class SecretariaController extends Controller {
 
                             if(Aluno::where('matricula', $collection[$row][$colunaMatricula])->first() == null) {
                                 $objAluno = new Aluno();
+                                $objCarteirinha = new Carteirinha();
                             }else {
                                 $objAluno = Aluno::find($collection[$row][$colunaMatricula]);
+                                $objCarteirinha = Carteirinha::find($collection[$row][$colunaMatricula]);
                             }
 
                             $objAluno->matricula = $collection[$row][$colunaMatricula];
@@ -160,7 +162,6 @@ class SecretariaController extends Controller {
                             $objAluno->password = bcrypt($pwd);
                             $objAluno->save();
 
-                            $objCarteirinha = new Carteirinha();
                             $objCarteirinha->aluno_matricula = $collection[$row][$colunaMatricula];
                             $objCarteirinha->validade = $collection[$row][$colunaValidade];
                             $objCarteirinha->emissao = $collection[$row][$colunaEmissao];

@@ -55,7 +55,13 @@
 	        </span>
 	        <input type="text" class="form-control" placeholder='Nenhum arquivo selecionado...' />
 	    </div>
-	    <br>
+		<br>
+		<div class="alert alert-primary" role="alert">
+			O arquivo deve ser uma planilha válida!
+		</div>
+		<div class="alert alert-primary" role="alert">
+			Dependendo do tamanho do arquivo pode levar alguns instantes para a importação!
+		</div>
 	    <button type="submit" class="btn btn-success btn-block">
 	        <i class="fas fa-check"></i> Concluir
 	    </button>
