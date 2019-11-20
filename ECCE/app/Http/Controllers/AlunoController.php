@@ -189,8 +189,8 @@ class AlunoController extends Controller {
                 $att = 1;
             }
             if(!is_null(($_POST['nascimento'])) && isRealDate($_POST['nascimento']) && Request::input('nascimento') != $aluno->nascimento) {
-                $date = date_create(Request::input('nascimento'));
-                $alteracoes->nascimento = date_format($date,"d/m/Y");
+                //$date = date_create(Request::input('nascimento'));
+                $alteracoes->nascimento = Request::input('nascimento'); //date_format($date,"d/m/Y");
                 $att = 1;
             }
             if(Request::hasFile('foto')) {

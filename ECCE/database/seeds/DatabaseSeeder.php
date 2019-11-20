@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
         DB::table('funcionarios')->insert([
             'nome' => 'Secretaria 3',
             'matricula' => 'secretaria_3',
-            'password' => bcrypt('ecce0202')
+            'password' => bcrypt('ecce0303')
         ]);
     }
 }

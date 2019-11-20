@@ -115,8 +115,8 @@
 				<input type="text" class="form-control bg-light" name="naturalidade" value="{{ $alteracao->naturalidade }}">
 			</div>
 			<div class="col">
-				<label>Nascimento: ({{ $alteracao->nascimento }})</label>
-				<input type="date" class="form-control bg-light" name="nascimento">
+				<label>Nascimento: </label>
+				<input type="date" class="form-control bg-light" name="nascimento" value="{{ $alteracao->nascimento }}">
 			</div>
 		</div>
 		<br>
