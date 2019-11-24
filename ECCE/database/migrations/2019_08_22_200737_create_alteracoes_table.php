@@ -27,6 +27,7 @@ class CreateAlteracoesTable extends Migration
             $table->string('naturalidade');
             $table->string('foto');
             $table->integer('status');
+            $table->integer('aprovado');
             $table->string('data');
         });
     }
