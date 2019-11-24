@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Alteracoes extends Model
 {
+    public $primaryKey = 'id';
+
+    protected $table = 'alteracoes';
+
     public $timestamps = false;
-
-    public $primaryKey = 'matricula';
-
-    public $incrementing = false;
 }

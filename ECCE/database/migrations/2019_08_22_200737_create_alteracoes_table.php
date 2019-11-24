@@ -14,7 +14,8 @@ class CreateAlteracoesTable extends Migration
     public function up()
     {
         Schema::create('alteracoes', function (Blueprint $table) {
-            $table->string('matricula');
+            $table->bigIncrements('id');
+            $table->string('aluno_matricula');
             $table->string('nome');
             $table->string('curso');
             $table->string('ano');
@@ -25,6 +26,8 @@ class CreateAlteracoesTable extends Migration
             $table->string('campus');
             $table->string('naturalidade');
             $table->string('foto');
+            $table->integer('status');
+            $table->string('data');
         });
     }
 

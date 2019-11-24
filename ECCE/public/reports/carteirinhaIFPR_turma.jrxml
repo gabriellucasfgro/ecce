@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_Letter_Landscape" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="366884eb-a432-4e9a-9565-b6542965092c">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Database"/>
@@ -18,6 +18,7 @@
 	<parameter name="caminho" class="java.lang.String"/>
 	<parameter name="verso" class="java.lang.String"/>
 	<parameter name="assinatura" class="java.lang.String"/>
+	<parameter name="url" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT * FROM alunos, carteirinhas WHERE curso = $P{curso} AND ano = $P{ano} GROUP BY matricula]]>
 	</queryString>
@@ -90,7 +91,7 @@
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#387800"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#387800"/>
 				</box>
-				<imageExpression><![CDATA["C:/Users/DOOBZ/ECCE/public/reports/frente.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{frente}]]></imageExpression>
 			</image>
 			<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
 				<reportElement x="286" y="8" width="260" height="169" uuid="9024b978-1665-4452-8d9a-dc0ac27c5db3">
@@ -105,7 +106,7 @@
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#387800"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#387800"/>
 				</box>
-				<imageExpression><![CDATA["C:/Users/DOOBZ/ECCE/public/reports/verso.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{verso}]]></imageExpression>
 			</image>
 			<textField>
 				<reportElement x="126" y="73" width="63" height="23" uuid="dfe9072d-beba-4661-9f21-3a50bf8ef902">
@@ -218,7 +219,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<jr:codeExpression><![CDATA[$F{matricula}]]></jr:codeExpression>
+					<jr:codeExpression><![CDATA[$P{url}+$F{matricula}]]></jr:codeExpression>
 				</jr:QRCode>
 			</componentElement>
 			<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Blank">

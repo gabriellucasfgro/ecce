@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Request;
-use Illuminate\Support\Facades\DB;
 use App\Aluno;
 use App\Carteirinha;
+use DateTime;
 
 class ConsultaController extends Controller {
 
@@ -13,7 +12,7 @@ class ConsultaController extends Controller {
         $aluno = Aluno::find($matricula);
         $carteirinha = Carteirinha::find($matricula);
         if($aluno != null && $carteirinha != null) {
-            if($carteirinha->validade < date("d/m/Y")) {
+            if(DateTime::createFromFormat('d/m/Y', $carteirinha->validade)->format('Y-m-d') < date("Y-m-d")) {
                 return view('consultaCarteirinha')->with('aluno', $aluno)->with('carteirinha', $carteirinha)->with('status', 'invalido');
             }
             else {

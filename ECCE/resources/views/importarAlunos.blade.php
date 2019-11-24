@@ -43,7 +43,7 @@
 
 @section('conteudo')
 	<div class="jumbotron">
-		<form action="{{ action('SecretariaController@importarTurma') }}" method="POST" enctype="multipart/form-data">
+		<form action="{{ action('ImportarController@importarTurma') }}" method="POST" enctype="multipart/form-data">
 		<input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
 		<input type ="hidden" name="importar" value="I">
 		<label>Planilha da turma: </label>

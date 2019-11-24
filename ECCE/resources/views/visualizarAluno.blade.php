@@ -73,11 +73,11 @@
 
 		<div class="row">
 			<div class="col">
-				<label>Data de Emissão</label>
-				<input type="text" class="form-control bg-light" name="" value="{{ date('d/m/Y', strtotime($carteirinha->emissao)) }}" readonly>
+				<label>Data de Emissão:</label>
+				<input type="text" class="form-control bg-light" name="" value="{{ $carteirinha->emissao }}" readonly>
 			</div>
 			<div class="col">
-				<label>Validade</label>
+				<label>Validade:</label>
 				<input type="text" class="form-control bg-light" name="" value="{{ $carteirinha->validade }}" readonly>
 			</div>
 		</div>

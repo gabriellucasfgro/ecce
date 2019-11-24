@@ -5,21 +5,26 @@
 		<table class='table table-striped'>
 			<thead>
 				<tr>
-				    <th>MATRICULA</th>
 				    <th>NOME</th>
-				    <th></th>
+				    <th>CURSO</th>
+					<th>ANO</th>
+					<th>DATA</th>
+				    <th>ALTERAÇÕES</th>
 				</tr>
 			</thead>
 			<tbody>
-				@foreach ($funcionarios as $dados)
+				@foreach ($alteracoes as $dados)
 				<tr>
-				    <td>{{ $dados->matricula }}</td>
 				    <td>{{ $dados->nome }}</td>
+				    <td>{{ $dados->curso }}</td>
+				    <td>{{ $dados->ano }}</td>
+					<td>{{ $dados->data }}</td>
 				    <td>
-					    <form action="{{ action('RootController@alterarFuncionario', ['id' => $dados->id]) }}" method="POST">
+				    	<form action="{{ action('ValidarController@visualizarAlteracaoHistorico', ['id' => $dados->id]) }}" method="POST">
 						<input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
+						<input type ="hidden" name="historico" value="H">
 					    	<button type="submit" class="btn btn-xs btn-success">
-					        	<i class="fas fa-pencil-alt"></i>
+                                <i class="fas fa-eye"></i>
 					      	</button>
 					    </form>
 				    </td>

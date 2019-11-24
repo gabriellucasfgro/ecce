@@ -2,7 +2,7 @@
 
 @section('menu')
 	<div class="jumbotron">
-		<form action="{{ action('SecretariaController@filtrarCarteirinhas') }}" method="POST">
+		<form action="{{ action('ManterController@filtrarCarteirinhas') }}" method="POST">
 		<input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
 		<input type ="hidden" name="carteirinhas" value="C">
 			<div class="row">
@@ -18,7 +18,7 @@
 	</div>
 
 	<div class="jumbotron">
-		<form action="{{ action('SecretariaController@filtrarCarteirinhasTurma') }}" method="POST">
+		<form action="{{ action('ManterController@filtrarCarteirinhasTurma') }}" method="POST">
 		<input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
 		<input type ="hidden" name="carteirinhas" value="C">
 			<div class="row">
@@ -51,7 +51,7 @@
 @section('conteudo')
 	<div class="jumbotron">
 		@if(isset($filtro_curso) && isset($filtro_ano))
-			<form action="{{ action('SecretariaController@imprimirTurma', ['curso' => $filtro_curso, 'ano' => $filtro_ano]) }}" method="POST" target="_blank">
+			<form action="{{ action('ImprimirController@imprimirTurma', ['curso' => $filtro_curso, 'ano' => $filtro_ano]) }}" method="POST" target="_blank">
 			<input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
 			<input type ="hidden" name="carteirinhas" value="C">
 		    	<button type="submit" class="btn btn-xs btn-block btn-success">
@@ -77,13 +77,21 @@
 				    <td>{{ $dados->nome }}</td>
 				    <td>{{ $dados->curso }}</td>
 				    <td>{{ $dados->validade }}</td>
-				    <td>{{ date("d/m/Y", strtotime($dados->emissao)) }}</td>
+				    <td>{{ $dados->emissao }}</td>
 				    <td>
-				    	<form action="{{ action('SecretariaController@imprimir', ['id' => $dados->matricula]) }}" method="POST" target="_blank">
+				    	<form action="{{ action('ImprimirController@imprimirAluno', ['matricula' => $dados->matricula]) }}" method="POST" target="_blank">
 						<input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
 						<input type ="hidden" name="carteirinhas" value="C">
 					    	<button type="submit" class="btn btn-xs btn-success">
 					        	<i class="fas fa-address-card"></i>
+					      	</button>
+						</form>
+						<br>
+						<form action="{{ action('ManterController@alterarCarteirinha', ['matricula' => $dados->matricula]) }}" method="POST">
+						<input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
+						<input type ="hidden" name="carteirinhas" value="C">
+					    	<button type="submit" class="btn btn-xs btn-success">
+								<i class="fas fa-pencil-alt"></i>
 					      	</button>
 					    </form>
 				    </td>

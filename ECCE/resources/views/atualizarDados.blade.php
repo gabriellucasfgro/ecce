@@ -46,7 +46,7 @@
 
 @section('conteudo')
 	<div class="jumbotron">
-		<form action="{{ action('AlunoController@solicitarAlteracao') }}" method="POST" enctype="multipart/form-data">
+		<form action="{{ action('AlterarController@solicitarAlteracao') }}" method="POST" enctype="multipart/form-data">
 		<input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
 		<input type ="hidden" name="atualizar" value="A">
 			<div class="row">
@@ -117,8 +117,8 @@
 					<input type="text" class="form-control bg-light" name="naturalidade" value="{{ Auth::user()->naturalidade }}">
 				</div>
 				<div class="col">
-					<label>Nascimento: ({{ Auth::user()->nascimento }})</label>
-					<input type="date" class="form-control bg-light" name="nascimento" value="">
+					<label>Nascimento:</label>
+					<input type="date" class="form-control bg-light" name="nascimento" value="{{ DateTime::createFromFormat('d/m/Y', Auth::user()->nascimento)->format('Y-m-d') }}">
 				</div>
 			</div>
 			<br>

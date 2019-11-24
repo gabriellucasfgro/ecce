@@ -51,7 +51,7 @@
                                     </button>
                                 </form>
 
-                                <form action="{{ action('AlunoController@atualizar') }}" method="POST">
+                                <form action="{{ action('AlterarController@atualizar') }}" method="POST">
                                 <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
                                 <input type ="hidden" name="atualizar" value="A">
                                     @if(Request::input('atualizar') == 'A')
@@ -63,7 +63,7 @@
                                     </button>
                                 </form>
 
-                                <form action="{{ action('AlunoController@imprimir') }}" method="POST" target="_blank">
+                                <form action="{{ action('ImprimirController@imprimir') }}" method="POST" target="_blank">
                                 <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
                                 <input type ="hidden" name="imprimir" value="I">
                                     @if(Request::input('imprimir') == 'I')

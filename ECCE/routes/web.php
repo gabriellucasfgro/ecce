@@ -14,49 +14,65 @@ use App\Carteirinha;
 |
 */
 
+//Inicio
 Route::get('/', function () {
     return view('entrar');
 });
+
+//Consulta Controller
 Route::get('/carteirinha/{matricula}', 'ConsultaController@consultarCarteirinha');
 Route::get('/carteirinha/', 'ConsultaController@consultarCarteirinha');
 
-//AUTENTICAR
+// Secretaria Controller
 Route::post('/secretaria/autenticar', 'SecretariaController@autenticar');
+Route::post('/secretaria/sair', 'SecretariaController@sair');
+
+// Aluno Controller
 Route::post('/aluno/autenticar', 'AlunoController@autenticar');
+Route::post('/aluno/perfil', 'AlunoController@perfil');
+Route::post('/aluno/sair', 'AlunoController@sair');
 
-//Rotas autenticadas // secretaria
-	Route::post('/secretaria/alunos/filtro_geral', 'SecretariaController@filtrarAlunos');
-	Route::post('/secretaria/alunos/filtro_turma', 'SecretariaController@filtrarTurma');
-	Route::post('/secretaria/carteirinhas/filtro_geral', 'SecretariaController@filtrarCarteirinhas');
-	Route::post('/secretaria/carteirinhas/filtro_turma', 'SecretariaController@filtrarCarteirinhasTurma');
-	Route::post('/secretaria/carteirinha/imprimirTurma/{curso}/{ano}', 'SecretariaController@imprimirTurma');
-	Route::post('/secretaria/carteirinha/imprimir/{matricula}', 'SecretariaController@imprimir');
-	Route::post('/secretaria/importar/alunos', 'SecretariaController@importarTurma');
-	Route::post('/secretaria/exportar/alunos/{curso}/{turma}', 'SecretariaController@exportarTurma');
-	Route::post('/secretaria/aluno/visualisar/{matricula}', 'SecretariaController@visualisarAluno');
-	Route::post('/secretaria/aluno/alterar/{matricula}', 'SecretariaController@alterarAluno');
-	Route::post('/secretaria/aluno/atualizar/imagem/{matricula}', 'SecretariaController@atualizarImagem');
-	Route::post('/secretaria/aluno/atualizar/dados/{matricula}', 'SecretariaController@atualizarDados');
-	Route::post('/secretaria/alunos', 'SecretariaController@manterAlunos');
-	Route::post('/secretaria/carteirinhas', 'SecretariaController@manterCarteirinhas');
-	Route::post('/secretaria/importar', 'SecretariaController@importar');
-	Route::post('/secretaria/exportar', 'SecretariaController@exportar');
-	Route::post('/secretaria/assinatura', 'SecretariaController@assinatura');
-	Route::post('/secretaria/assinatura/alterar', 'SecretariaController@atualizarAssinatura');
-	Route::post('/secretaria/solicitacoes', 'SecretariaController@solicitacao');
-	Route::post('/secretaria/visualisar/alteracao/{matricula}', 'SecretariaController@visualisarAlteracao');
-	Route::post('/secretaria/alteracao/validar', 'SecretariaController@validarAlteracao');
-	Route::post('/secretaria/alteracao/recusar/{matricula}', 'SecretariaController@recusarAlteracao');
-	Route::post('/secretaria/sair', 'SecretariaController@sair');
-	// root
-	Route::post('/root/funcionarios', 'SecretariaController@funcionarios');
-	Route::post('/root/funcionarios/alterar/{id}', 'SecretariaController@alterarFuncionario');
-	Route::post('/root/funcionario/alterar/salvar/{id}', 'SecretariaController@atualizarFuncionario');
+//Rotas autenticadas - Secretaria
+	//Manter Controller
+	Route::post('/secretaria/alunos/filtro_geral', 'ManterController@filtrarAlunos');
+	Route::post('/secretaria/alunos/filtro_turma', 'ManterController@filtrarTurma');
+	Route::post('/secretaria/carteirinhas/filtro_geral', 'ManterController@filtrarCarteirinhas');
+	Route::post('/secretaria/carteirinhas/filtro_turma', 'ManterController@filtrarCarteirinhasTurma');
+	Route::post('/secretaria/aluno/visualizar/{matricula}', 'ManterController@visualizarAluno');
+	Route::post('/secretaria/aluno/alterar/{matricula}', 'ManterController@alterarAluno');
+	Route::post('/secretaria/aluno/atualizar/imagem/{matricula}', 'ManterController@atualizarImagem');
+	Route::post('/secretaria/aluno/atualizar/dados/{matricula}', 'ManterController@atualizarDados');
+	Route::post('/secretaria/alunos', 'ManterController@manterAlunos');
+	Route::post('/secretaria/carteirinhas', 'ManterController@manterCarteirinhas');
+	Route::post('/secretaria/carteirinha/alterar/{matricula}', 'ManterController@alterarCarteirinha');
+	Route::post('/secretaria/carteirinha/atualizar/dados/{matricula}', 'ManterController@atualizarCarteirinha');
+	//Imprimir Controller
+	Route::post('/secretaria/carteirinha/imprimirTurma/{curso}/{ano}', 'ImprimirController@imprimirTurma');
+	Route::post('/secretaria/carteirinha/imprimir/{matricula}', 'ImprimirController@imprimirAluno');
+	Route::post('/aluno/imprimir', 'ImprimirController@imprimir');
+	//Importar Controller
+	Route::post('/secretaria/importar', 'ImportarController@importar');
+	Route::post('/secretaria/importar/alunos', 'ImportarController@importarTurma');
+	//Exportar Controller
+	Route::post('/secretaria/exportar/alunos/{curso}/{turma}', 'ExportarController@exportarTurma');
+	Route::post('/secretaria/exportar', 'ExportarController@exportar');
+	//Assinatura Controller
+	Route::post('/secretaria/assinatura', 'AssinaturaController@assinatura');
+	Route::post('/secretaria/assinatura/alterar', 'AssinaturaController@atualizarAssinatura');
+	//Alteracoes Controller
+	Route::post('/secretaria/solicitacoes/pendentes', 'ValidarController@solicitacoesPendentes');
+	Route::post('/secretaria/solicitacoes/historico', 'ValidarController@solicitacoesHistorico');
+	Route::post('/secretaria/visualizar/alteracao/historico/{id}', 'ValidarController@visualizarAlteracaoHistorico');
+	Route::post('/secretaria/visualizar/alteracao/{id}', 'ValidarController@visualizarAlteracao');
+	Route::post('/secretaria/alteracao/validar/{id}', 'ValidarController@validarAlteracao');
+	Route::post('/secretaria/alteracao/recusar/{id}', 'ValidarController@recusarAlteracao');
+		//Root Controller
+		Route::post('/root/funcionarios', 'RootController@funcionarios');
+		Route::post('/root/funcionarios/alterar/{id}', 'RootController@alterarFuncionario');
+		Route::post('/root/funcionario/alterar/salvar/{id}', 'RootController@atualizarFuncionario');
 
-//Rotas autenticadas // aluno
-	Route::post('/aluno/perfil', 'AlunoController@perfil');
-	Route::post('/aluno/atualizar', 'AlunoController@atualizar');
-	Route::post('/aluno/atualizar/imagem', 'AlunoController@atualizarImagem');
-	Route::post('/aluno/atualizar/solicitar', 'AlunoController@solicitarAlteracao');
-	Route::post('/aluno/imprimir', 'AlunoController@imprimir');
-	Route::post('/aluno/sair', 'AlunoController@sair');
+//Rotas autenticadas - Aluno
+	//Alterar Controller
+	Route::post('/aluno/atualizar', 'AlterarController@atualizar');
+	Route::post('/aluno/atualizar/imagem', 'AlterarController@atualizarImagem');
+	Route::post('/aluno/atualizar/solicitar', 'AlterarController@solicitarAlteracao');

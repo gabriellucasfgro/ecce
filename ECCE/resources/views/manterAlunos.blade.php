@@ -2,7 +2,7 @@
 
 @section('menu')
 	<div class="jumbotron">
-		<form action="{{ action('SecretariaController@filtrarAlunos') }}" method="POST">
+		<form action="{{ action('ManterController@filtrarAlunos') }}" method="POST">
 		<input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
 		<input type ="hidden" name="alunos" value="A">
 			<div class="row">
@@ -18,7 +18,7 @@
 	</div>
 
 	<div class="jumbotron">
-		<form action="{{ action('SecretariaController@filtrarTurma') }}" method="POST">
+		<form action="{{ action('ManterController@filtrarTurma') }}" method="POST">
 		<input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
 		<input type ="hidden" name="alunos" value="A">
 			<div class="row">
@@ -67,7 +67,7 @@
 				    <td>{{ $dados->curso }}</td>
 				    <td>{{ $dados->ano }}</td>
 				    <td>
-				    	<form action="{{ action('SecretariaController@visualisarAluno', ['id' => $dados->matricula]) }}" method="POST">
+				    	<form action="{{ action('ManterController@visualizarAluno', ['id' => $dados->matricula]) }}" method="POST">
 						<input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
 						<input type ="hidden" name="alunos" value="A">
 					    	<button type="submit" class="btn btn-xs btn-success">
@@ -77,7 +77,7 @@
 
 					    <br>
 
-					    <form action="{{ action('SecretariaController@alterarAluno', ['id' => $dados->matricula]) }}" method="POST">
+					    <form action="{{ action('ManterController@alterarAluno', ['id' => $dados->matricula]) }}" method="POST">
 						<input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
 						<input type ="hidden" name="alunos" value="A">
 					    	<button type="submit" class="btn btn-xs btn-success">

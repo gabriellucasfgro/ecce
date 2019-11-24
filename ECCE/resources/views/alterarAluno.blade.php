@@ -52,9 +52,9 @@
 				</figure>
 			</div>
 
-			<form action="{{ action('SecretariaController@atualizarImagem', ['matricula' => $aluno->matricula]) }}" method="POST" enctype="multipart/form-data">
+			<form action="{{ action('ManterController@atualizarImagem', ['matricula' => $aluno->matricula]) }}" method="POST" enctype="multipart/form-data">
 			<input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
-			<input type ="hidden" name="atualizar" value="A">
+			<input type ="hidden" name="alunos" value="A">
                 <div class="form-group">
                     <div class="input-group input-file" name="foto" id="foto">
 				        <span class="input-group-btn">
@@ -75,9 +75,9 @@
 	</div>
 
 	<div class="jumbotron">
-		<form action="{{ action('SecretariaController@atualizarDados', ['matricula' => $aluno->matricula]) }}" method="POST">
+		<form action="{{ action('ManterController@atualizarDados', ['matricula' => $aluno->matricula]) }}" method="POST">
 		<input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
-		<input type ="hidden" name="atualizar" value="A">
+		<input type ="hidden" name="alunos" value="A">
 		<div class="row">
 			<div class="col">
 				<label>Nome:</label>
@@ -128,8 +128,8 @@
 				<input type="text" class="form-control bg-light" name="naturalidade" value="{{ $aluno->naturalidade }}">
 			</div>
 			<div class="col">
-				<label>Nascimento: ({{ $aluno->nascimento }})</label>
-				<input type="date" class="form-control bg-light" name="nascimento" value="null">
+				<label>Nascimento:</label>
+				<input type="date" class="form-control bg-light" name="nascimento" value="{{ DateTime::createFromFormat('d/m/Y', $aluno->nascimento)->format('Y-m-d') }}">
 			</div>
 		</div>
 		<br>

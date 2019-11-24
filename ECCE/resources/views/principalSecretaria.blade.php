@@ -39,7 +39,7 @@
                         <div class="col-3">
                             <div class="list-group">
 
-                                <form action="{{ action('SecretariaController@manterAlunos') }}" method="POST">
+                                <form action="{{ action('ManterController@manterAlunos') }}" method="POST">
                                 <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
                                 <input type ="hidden" name="alunos" value="A">
                                     @if(Request::input('alunos') == 'A')
@@ -51,7 +51,7 @@
                                     </button>
                                 </form>
 
-                                <form action="{{ action('SecretariaController@manterCarteirinhas') }}" method="POST">
+                                <form action="{{ action('ManterController@manterCarteirinhas') }}" method="POST">
                                 <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
                                 <input type ="hidden" name="carteirinhas" value="C">
                                     @if(Request::input('carteirinhas') == 'C')
@@ -63,7 +63,7 @@
                                     </button>
                                 </form>
 
-                                <form action="{{ action('SecretariaController@importar') }}" method="POST">
+                                <form action="{{ action('ImportarController@importar') }}" method="POST">
                                 <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
                                 <input type ="hidden" name="importar" value="I">
                                     @if(Request::input('importar') == 'I')
@@ -75,7 +75,7 @@
                                     </button>
                                 </form>
 
-                                <form action="{{ action('SecretariaController@exportar') }}" method="POST">
+                                <form action="{{ action('ExportarController@exportar') }}" method="POST">
                                 <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
                                 <input type ="hidden" name="exportar" value="E">
                                     @if(Request::input('exportar') == 'E')
@@ -87,7 +87,7 @@
                                     </button>
                                 </form>
 
-                                <form action="{{ action('SecretariaController@assinatura') }}" method="POST">
+                                <form action="{{ action('AssinaturaController@assinatura') }}" method="POST">
                                 <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
                                 <input type ="hidden" name="assinatura" value="A">
                                     @if(Request::input('assinatura') == 'A')
@@ -99,15 +99,27 @@
                                     </button>
                                 </form>
 
-                                <form action="{{ action('SecretariaController@solicitacao') }}" method="POST">
+                                <form action="{{ action('ValidarController@solicitacoesPendentes') }}" method="POST">
                                 <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
-                                <input type ="hidden" name="solicitacao" value="S">
-                                    @if(Request::input('solicitacao') == 'S')
+                                <input type ="hidden" name="pendentes" value="P">
+                                    @if(Request::input('pendentes') == 'P')
                                         <button type="submit" class="list-group-item list-group-item-action bg-success active">
                                     @else
                                         <button type="submit" class="list-group-item list-group-item-action">
                                     @endif
-                                        <i class="fas fa-envelope"></i> Solicitações de Alteração
+                                        <i class="fas fa-envelope"></i> Solicitações Pendentes
+                                    </button>
+                                </form>
+
+                                <form action="{{ action('ValidarController@solicitacoesHistorico') }}" method="POST">
+                                <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
+                                <input type ="hidden" name="historico" value="H">
+                                    @if(Request::input('historico') == 'H')
+                                        <button type="submit" class="list-group-item list-group-item-action bg-success active">
+                                    @else
+                                        <button type="submit" class="list-group-item list-group-item-action">
+                                    @endif
+                                        <i class="fas fa-history"></i> Histórico de Solicitações
                                     </button>
                                 </form>
 
@@ -119,9 +131,14 @@
                                 </form>
 
                                 @if(Auth::guard('secretaria')->user()->matricula == 'root_ecce')
-                                    <form action="{{ action('SecretariaController@funcionarios') }}" method="POST">
+                                    <form action="{{ action('RootController@funcionarios') }}" method="POST">
                                     <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
-                                        <button type="submit" class="list-group-item list-group-item-action bg-warning">
+                                    <input type ="hidden" name="root" value="R">
+                                        @if(Request::input('root') == 'R')
+                                            <button type="submit" class="list-group-item list-group-item-action bg-warning active">
+                                        @else
+                                            <button type="submit" class="list-group-item list-group-item-action bg-warning">
+                                        @endif
                                             <i class="fas fa-user-shield"></i> Administrar funcionarios
                                         </button>
                                     </form>

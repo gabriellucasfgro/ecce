@@ -70,7 +70,7 @@
 		<div class="row">
 			<div class="col">
 				<label>Data de Emissão</label>
-				<input type="text" class="form-control bg-light" name="" value="{{ date('d/m/Y', strtotime(Session::get('carteirinha')->emissao)) }}" readonly>
+				<input type="text" class="form-control bg-light" name="" value="{{ Session::get('carteirinha')->emissao }}" readonly>
 			</div>
 			<div class="col">
 				<label>Validade</label>

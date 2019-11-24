@@ -16,7 +16,7 @@
 				    <td>{{ $dados->curso }}</td>
 				    <td>{{ $dados->ano }}</td>
 				    <td>
-				    	<form action="{{ action('SecretariaController@exportarTurma', ['curso' => $dados->curso, 'ano' => $dados->ano]) }}" method="POST">
+				    	<form action="{{ action('ExportarController@exportarTurma', ['curso' => $dados->curso, 'ano' => $dados->ano]) }}" method="POST">
 						<input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
 						<input type ="hidden" name="exportar" value="E">
 					    	<button type="submit" class="btn btn-xs btn-success">

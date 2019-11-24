@@ -2,7 +2,7 @@
 
 @section('conteudo')
     <div class="jumbotron">
-        <form action="{{ action('SecretariaController@atualizarFuncionario', ['id' => $funcionario->id]) }}" method="POST">
+        <form action="{{ action('RootController@atualizarFuncionario', ['id' => $funcionario->id]) }}" method="POST">
         <input type ="hidden" name="_token" value="{{{ csrf_token() }}}">
             <div class="row">
                 <div class="col">
