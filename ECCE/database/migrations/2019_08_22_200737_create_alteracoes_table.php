@@ -25,8 +25,8 @@ class CreateAlteracoesTable extends Migration
             $table->string('modalidade');
             $table->string('campus');
             $table->string('naturalidade');
-            $table->string('foto');
-            $table->integer('status');
+            $table->string('foto')->default('default.png');;
+            $table->integer('status')->default('1');
             $table->integer('aprovado');
             $table->string('data');
         });

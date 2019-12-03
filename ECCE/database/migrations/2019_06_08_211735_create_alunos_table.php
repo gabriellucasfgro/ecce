@@ -24,7 +24,7 @@ class CreateAlunosTable extends Migration
             $table->string('modalidade');
             $table->string('campus');
             $table->string('naturalidade');
-            $table->string('foto');
+            $table->string('foto')->default('default.png');
         });
     }
 
