@@ -165,11 +165,11 @@ class ManterController extends Controller {
             $aluno = Aluno::find($matricula);
 
             if(isset($_POST['nome']) && Request::input('nome') != $aluno->nome) {
-                $aluno->nome = Request::input('nome');
+                $aluno->nome = strtoupper(Request::input('nome'));
                 $aluno->save();
             } 
             if(isset($_POST['curso']) && Request::input('curso') != $aluno->curso) {
-                $aluno->curso = Request::input('curso');
+                $aluno->curso = strtoupper(Request::input('curso'));
                 $aluno->save();
             }
             if(isset($_POST['ano']) && Request::input('ano') != $aluno->ano) {
@@ -177,11 +177,11 @@ class ManterController extends Controller {
                 $aluno->save();
             }
             if(isset($_POST['campus']) && Request::input('campus') != $aluno->campus) {
-                $aluno->campus = Request::input('campus');
+                $aluno->campus = strtoupper(Request::input('campus'));
                 $aluno->save();
             }
             if(isset($_POST['modalidade']) && Request::input('modalidade') != $aluno->modalidade) {
-                $aluno->modalidade = Request::input('modalidade');
+                $aluno->modalidade = strtoupper(Request::input('modalidade'));
                 $aluno->save();
             }
             if(isset($_POST['cpf']) && Request::input('cpf') != $aluno->cpf) {
@@ -193,7 +193,7 @@ class ManterController extends Controller {
                 $aluno->save();
             }
             if(isset($_POST['naturalidade']) && Request::input('naturalidade') != $aluno->naturalidade) {
-                $aluno->naturalidade = Request::input('naturalidade');
+                $aluno->naturalidade = strtoupper(Request::input('naturalidade'));
                 $aluno->save();
             }
             if(!is_null(($_POST['nascimento'])) && isRealDate($_POST['nascimento']) && Request::input('nascimento') != $aluno->nascimento) {

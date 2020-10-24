@@ -70,16 +70,17 @@
 
 		<br>
 		<br>
-
-		<div class="row">
-			<div class="col">
-				<label>Data de Emissão:</label>
-				<input type="text" class="form-control bg-light" name="" value="{{ $carteirinha->emissao }}" readonly>
+		@if($carteirinha != null)
+			<div class="row">
+				<div class="col">
+					<label>Data de Emissão:</label>
+					<input type="text" class="form-control bg-light" name="" value="{{ $carteirinha->emissao }}" readonly>
+				</div>
+				<div class="col">
+					<label>Validade:</label>
+					<input type="text" class="form-control bg-light" name="" value="{{ $carteirinha->validade }}" readonly>
+				</div>
 			</div>
-			<div class="col">
-				<label>Validade:</label>
-				<input type="text" class="form-control bg-light" name="" value="{{ $carteirinha->validade }}" readonly>
-			</div>
-		</div>
+		@endif
 	</div>
 @stop
